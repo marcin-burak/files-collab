@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  filescollab.web:
+    image: ${DOCKER_REGISTRY-}filescollabweb
+    build:
+      context: .
+      dockerfile: src/FilesCollab.Web/Dockerfile
