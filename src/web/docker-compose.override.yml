@@ -1,11 +1,12 @@
 version: '3.4'
 
 services:
-  filescollab.web:
+  web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - SqlServer__RunMigrationsOnStartup=true
     ports:
       - "8080"
       - "8081"
