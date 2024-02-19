@@ -92,3 +92,9 @@ Elastic search ???
 - [ ] Token / cookie encryption
 - [ ] SQL injection
 - [ ] Back-end for front-end
+
+## HTTP
+
+- [ ] Proper problem details responses
+- [ ] Proper Open API standards
+- [ ] Error logging middleware

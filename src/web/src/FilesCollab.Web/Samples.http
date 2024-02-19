@@ -1,0 +1,19 @@
+@baseUri=https://localhost:64849/api/v1
+
+POST {{baseUri}}/authentication/sign-up
+Content-Type: application/json
+
+{
+    "username": "test@test.com",
+    "password": "P@ssw0rd"
+}
+
+###
+
+POST {{baseUri}}/authentication/sign-in
+Content-Type: application/json
+
+{
+    "username": "test@test.com",
+    "password": "P@ssw0rd"
+}
