@@ -3,17 +3,17 @@ using Microsoft.Extensions.Options;
 
 namespace FilesCollab.Web.Infrastructure.SqlServer;
 
-internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, DatabaseContext databaseContext)
+internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, IdentityContext identityContext)
 {
     private readonly IOptionsSnapshot<SqlServerOptions> _sqlServerOptions = sqlServerOptions;
     private readonly IWebHostEnvironment _environment = environment;
-    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly IdentityContext _identityContext = identityContext;
 
     public static async ValueTask TryRunDatabaseInitialization(IServiceProvider serviceProvider, CancellationToken cancellationToken)
     {
         using var dependencyInjectionScope = serviceProvider.CreateScope();
         var databaseInitialization = dependencyInjectionScope.ServiceProvider.GetRequiredService<DatabaseInitialization>();
-        await databaseInitialization.TryRunDatabaseInitialization(CancellationToken.None);
+        await databaseInitialization.TryRunDatabaseInitialization(cancellationToken);
     }
 
     private async ValueTask TryRunDatabaseInitialization(CancellationToken cancellationToken)
@@ -23,6 +23,6 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
             return;
         }
 
-        await _databaseContext.Database.MigrateAsync(cancellationToken);
+        await _identityContext.Database.MigrateAsync(cancellationToken);
     }
 }

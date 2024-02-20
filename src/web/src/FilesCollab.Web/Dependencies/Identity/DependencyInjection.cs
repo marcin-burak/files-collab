@@ -9,7 +9,7 @@ internal static class DependencyInjection
     public static IServiceCollection AddIdentityDependency(this IServiceCollection services) => services
         .AddIdentityCore<User>()
         .AddSignInManager()
-        .AddEntityFrameworkStores<DatabaseContext>()
+        .AddEntityFrameworkStores<IdentityContext>()
         .Services
         .AddAuthentication()
         .AddApplicationCookie()

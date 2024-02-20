@@ -2,6 +2,6 @@
 
 namespace FilesCollab.Web.Infrastructure.SqlServer.Entities;
 
-internal sealed class User : IdentityUser<Guid>
+internal sealed class User : IdentityUser<int>
 {
 }
