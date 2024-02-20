@@ -12,7 +12,7 @@ internal static class SignIn
     {
         //TODO: Test empty body behavior
         //TODO: Log request/response on error
-        builder.MapPost(uriPath, async Task<Results<NoContent, UnauthorizedHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignInRequest request, [FromServices] SignInManager<User> signInManager) =>
+        builder.MapPost(uriPath, async Task<Results<NoContent, UnauthorizedHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignInRequest request, SignInManager<User> signInManager) =>
         {
             var signInResult = await signInManager.PasswordSignInAsync(request.Username, request.Password, isPersistent: true, lockoutOnFailure: false);
             if (signInResult.Succeeded)
