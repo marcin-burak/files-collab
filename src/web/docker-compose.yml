@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: src/FilesCollab.Web/Dockerfile
     environment:
-      - SqlServer__ConnectionString=Server=sqlserver,1433;Database=FilesCollab;User=sa;Password=P@ssw0rd;TrustServerCertificate=true;
+      - SqlServer__ApplicationConnectionString=Server=sqlserver,1433;Database=Application;User=sa;Password=P@ssw0rd;TrustServerCertificate=true;
+      - SqlServer__IdentityConnectionString=Server=sqlserver,1433;Database=Identity;User=sa;Password=P@ssw0rd;TrustServerCertificate=true;
     networks:
       - database
     depends_on:

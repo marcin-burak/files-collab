@@ -1,18 +1,16 @@
 using FilesCollab.Web.Dependencies.FluentValidation;
-using FilesCollab.Web.Dependencies.Identity;
 using FilesCollab.Web.Dependencies.OpenApi;
+using FilesCollab.Web.Dependencies.SqlServer;
 using FilesCollab.Web.Features;
-using FilesCollab.Web.Infrastructure.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddAuthentication().Services
     .AddAuthorization()
-    .AddIdentityDependency()
+    .AddSqlServerDependency(builder.Configuration)
     .AddFluentValidationDependency()
-    .AddOpenApiDependency(builder.Configuration)
-    .AddSqlServerDependency(builder.Configuration);
+    .AddOpenApiDependency(builder.Configuration);
 
 var application = builder.Build();
 

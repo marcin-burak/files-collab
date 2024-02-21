@@ -1,4 +1,4 @@
-﻿using FilesCollab.Web.Infrastructure.SqlServer.Entities;
+﻿using FilesCollab.Web.Dependencies.SqlServer.Identity.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ internal static class SignIn
     {
         //TODO: Test empty body behavior
         //TODO: Log request/response on error
-        builder.MapPost(uriPath, async Task<Results<NoContent, UnauthorizedHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignInRequest request, SignInManager<User> signInManager) =>
+        builder.MapPost(uriPath, async Task<Results<NoContent, UnauthorizedHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignInRequest request, SignInManager<Account> signInManager) =>
         {
             var signInResult = await signInManager.PasswordSignInAsync(request.Username, request.Password, isPersistent: true, lockoutOnFailure: false);
             if (signInResult.Succeeded)

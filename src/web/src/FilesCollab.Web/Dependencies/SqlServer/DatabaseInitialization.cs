@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FilesCollab.Web.Dependencies.SqlServer.Application;
+using FilesCollab.Web.Dependencies.SqlServer.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace FilesCollab.Web.Infrastructure.SqlServer;
+namespace FilesCollab.Web.Dependencies.SqlServer;
 
-internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, IdentityContext identityContext)
+internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, DatabaseContext databaseContext, IdentityContext identityContext)
 {
     private readonly IOptionsSnapshot<SqlServerOptions> _sqlServerOptions = sqlServerOptions;
     private readonly IWebHostEnvironment _environment = environment;
+    private readonly DatabaseContext _databaseContext = databaseContext;
     private readonly IdentityContext _identityContext = identityContext;
 
     public static async ValueTask TryRunDatabaseInitialization(IServiceProvider serviceProvider, CancellationToken cancellationToken)
@@ -23,6 +26,9 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
             return;
         }
 
-        await _identityContext.Database.MigrateAsync(cancellationToken);
+        await Task.WhenAll(
+            _databaseContext.Database.MigrateAsync(cancellationToken),
+            _identityContext.Database.MigrateAsync(cancellationToken)
+        );
     }
 }

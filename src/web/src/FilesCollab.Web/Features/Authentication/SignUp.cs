@@ -1,4 +1,4 @@
-﻿using FilesCollab.Web.Infrastructure.SqlServer.Entities;
+﻿using FilesCollab.Web.Dependencies.SqlServer.Identity.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ internal static class SignUp
 {
     public static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder builder, string uriPath)
     {
-        builder.MapPost(uriPath, async Task<Results<NoContent, StatusCodeHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignUpRequest request, UserManager<User> userManager) =>
+        builder.MapPost(uriPath, async Task<Results<NoContent, StatusCodeHttpResult>> ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SignUpRequest request, UserManager<Account> userManager) =>
         {
             var userCreationResult = await userManager.CreateAsync(new()
             {

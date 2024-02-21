@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
+namespace FilesCollab.Web.Dependencies.SqlServer.Identity.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -12,7 +12,7 @@ namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Account",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,11 +34,11 @@ namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_Account", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "Claim",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -49,17 +49,17 @@ namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.PrimaryKey("PK_Claim", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_Claim_Account_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
+                name: "Login",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -69,17 +69,17 @@ namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.PrimaryKey("PK_Login", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_Login_Account_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
+                name: "Token",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -89,52 +89,52 @@ namespace FilesCollab.Web.Infrastructure.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_Token", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_Token_Account_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "AspNetUsers",
+                table: "Account",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "AspNetUsers",
+                table: "Account",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Claim_UserId",
+                table: "Claim",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Login_UserId",
+                table: "Login",
+                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "Claim");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "Login");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "Token");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Account");
         }
     }
 }
