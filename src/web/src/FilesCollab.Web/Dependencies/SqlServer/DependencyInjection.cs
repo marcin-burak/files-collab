@@ -25,5 +25,9 @@ internal static class DependencyInjection
         .Services
         .AddAuthentication()
         .AddApplicationCookie()
-        .Services;
+        .Services
+        .ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.Name = "Authentication";
+        });
 }
