@@ -20,9 +20,13 @@ services:
       - MSSQL_SA_PASSWORD=P@ssw0rd
     ports:
       - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
     networks:
       database:
         aliases:
           - sqlserver
+volumes:
+  sqlvolume:
 networks:
   database:
