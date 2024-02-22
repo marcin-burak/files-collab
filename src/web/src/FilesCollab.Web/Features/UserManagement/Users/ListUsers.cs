@@ -11,7 +11,7 @@ internal static class ListUsers
 {
     public static IEndpointRouteBuilder MapListUsersEndpoint(this IEndpointRouteBuilder builder, string uriPath)
     {
-        builder.MapGet(uriPath, async Task<Results<Ok<ListUsersResponse>, UnauthorizedHttpResult>> (
+        builder.MapGet(uriPath, async Task<Ok<ListUsersResponse>> (
             [FromQuery] int pageNumber,
             [FromQuery] int pageSize,
             [FromQuery] string? username,
