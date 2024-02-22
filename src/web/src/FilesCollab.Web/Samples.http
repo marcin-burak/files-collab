@@ -1,4 +1,4 @@
-@baseUri=https://localhost:64849/api/v1
+@baseUri=https://localhost:52095/api/v1
 
 POST {{baseUri}}/authentication/sign-up
 Content-Type: application/json
@@ -17,3 +17,11 @@ Content-Type: application/json
     "username": "test@test.com",
     "password": "P@ssw0rd"
 }
+
+###
+
+GET {{baseUri}}/user-management/users?pageNumber=1&pageSize=10
+
+###
+
+GET {{baseUri}}/user-management/users?pageNumber=1&pageSize=10&username=John%20Doe
