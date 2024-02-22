@@ -5,11 +5,11 @@ using Microsoft.Extensions.Options;
 
 namespace FilesCollab.Web.Dependencies.SqlServer;
 
-internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, DatabaseContext databaseContext, IdentityContext identityContext)
+internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> sqlServerOptions, IWebHostEnvironment environment, ApplicationContext applicationContext, IdentityContext identityContext)
 {
     private readonly IOptionsSnapshot<SqlServerOptions> _sqlServerOptions = sqlServerOptions;
     private readonly IWebHostEnvironment _environment = environment;
-    private readonly DatabaseContext _databaseContext = databaseContext;
+    private readonly ApplicationContext _applicationContext = applicationContext;
     private readonly IdentityContext _identityContext = identityContext;
 
     public static async ValueTask TryRunDatabaseInitialization(IServiceProvider serviceProvider, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
         }
 
         await Task.WhenAll(
-            _databaseContext.Database.MigrateAsync(cancellationToken),
+            _applicationContext.Database.MigrateAsync(cancellationToken),
             _identityContext.Database.MigrateAsync(cancellationToken)
         );
     }

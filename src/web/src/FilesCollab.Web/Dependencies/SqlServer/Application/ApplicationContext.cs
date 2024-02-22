@@ -1,9 +1,10 @@
 ﻿using FilesCollab.Web.Dependencies.SqlServer.Application.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FilesCollab.Web.Dependencies.SqlServer.Application;
 
-internal sealed class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options)
+internal sealed class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options)
 {
     public DbSet<User> User { get; set; }
 
@@ -15,8 +16,6 @@ internal sealed class DatabaseContext(DbContextOptions<DatabaseContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .Entity<Role>()
-            .HasData(Entities.Role.Administrator);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

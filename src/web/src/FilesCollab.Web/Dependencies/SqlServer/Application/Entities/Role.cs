@@ -1,4 +1,7 @@
-﻿namespace FilesCollab.Web.Dependencies.SqlServer.Application.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace FilesCollab.Web.Dependencies.SqlServer.Application.Entities;
 
 internal sealed class Role
 {
@@ -15,4 +18,13 @@ internal sealed class Role
         Id = Guid.Parse("9d058f91-a45f-4059-bbf5-0581973d902d"),
         Name = "Administator"
     };
+}
+
+internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.HasIndex(role => role.Name);
+        builder.HasData(Role.Administrator);
+    }
 }

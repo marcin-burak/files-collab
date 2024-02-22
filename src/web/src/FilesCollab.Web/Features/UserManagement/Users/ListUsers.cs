@@ -15,7 +15,7 @@ internal static class ListUsers
             [FromQuery] int pageNumber,
             [FromQuery] int pageSize,
             [FromQuery] string? username,
-            DatabaseContext applicationContext,
+            ApplicationContext applicationContext,
             CancellationToken cancellationToken) =>
         {
             var query = applicationContext.User.AsQueryable().AsNoTracking();

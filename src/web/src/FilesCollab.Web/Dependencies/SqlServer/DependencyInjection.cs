@@ -15,7 +15,7 @@ internal static class DependencyInjection
         .AddScoped<DatabaseInitialization>();
 
     private static IServiceCollection AddApplicationDatabase(this IServiceCollection services, IConfiguration configuration) => services
-        .AddSqlServer<DatabaseContext>(configuration.GetOptionsByConvention<SqlServerOptions>().ApplicationConnectionString);
+        .AddSqlServer<ApplicationContext>(configuration.GetOptionsByConvention<SqlServerOptions>().ApplicationConnectionString);
 
     private static IServiceCollection AddIdentityDatabaseAndServices(this IServiceCollection services, IConfiguration configuration) => services
         .AddSqlServer<IdentityContext>(configuration.GetOptionsByConvention<SqlServerOptions>().IdentityConnectionString)
