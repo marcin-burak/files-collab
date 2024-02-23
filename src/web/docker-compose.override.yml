@@ -7,6 +7,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - SqlServer__RunMigrationsOnStartup=true
+      - SqlServer__SeedData=true
     ports:
       - "8080"
       - "8081"

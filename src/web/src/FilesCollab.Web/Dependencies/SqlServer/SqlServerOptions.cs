@@ -10,6 +10,8 @@ internal sealed class SqlServerOptions
     public string IdentityConnectionString { get; set; } = string.Empty;
 
     public bool RunMigrationsOnStartup { get; set; }
+
+    public bool SeedData { get; set; }
 }
 
 internal sealed class SqlServerOptionsValidator : AbstractValidator<SqlServerOptions>
