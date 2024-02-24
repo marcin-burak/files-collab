@@ -7,17 +7,25 @@ internal sealed class Role
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public ICollection<User> Users { get; set; }
 
-    public ICollection<Group> Groups { get; set; }
 
-    public static Role Administrator { get; } = new()
-    {
-        Id = Guid.Parse("9d058f91-a45f-4059-bbf5-0581973d902d"),
-        Name = "Administator"
-    };
+    public List<User> Users { get; } = [];
+
+    public List<UserRole> UserRoles { get; } = [];
+
+
+
+    public List<Group> Groups { get; } = [];
+
+    public List<GroupRole> GroupRoles { get; } = [];
+
+
+
+    public List<Permission> Permissions { get; } = [];
+
+    public List<RolePermission> RolePermissions { get; } = [];
 }
 
 internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
@@ -25,6 +33,5 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.HasIndex(role => role.Name);
-        builder.HasData(Role.Administrator);
     }
 }

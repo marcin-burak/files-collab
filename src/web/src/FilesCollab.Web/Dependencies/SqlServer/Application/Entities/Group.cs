@@ -7,13 +7,31 @@ internal sealed class Group
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public ICollection<User> Users { get; set; }
 
-    public ICollection<Role> Roles { get; set; }
 
-    public ICollection<Workspace> Workspaces { get; set; }
+    public List<User> Users { get; } = [];
+
+    public List<UserGroup> UserGroups { get; } = [];
+
+
+
+    public List<Role> Roles { get; } = [];
+
+    public List<GroupRole> GroupRoles { get; } = [];
+
+
+
+    public List<Permission> Permissions { get; } = [];
+
+    public List<GroupPermission> GroupPermissions { get; } = [];
+
+
+
+    public List<Workspace> Workspaces { get; } = [];
+
+    public List<GroupWorkspace> GroupWorkspaces { get; } = [];
 }
 
 internal sealed class GroupConfiguration : IEntityTypeConfiguration<Group>

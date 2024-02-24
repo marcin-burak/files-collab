@@ -7,13 +7,31 @@ internal sealed class User
 {
     public Guid Id { get; set; }
 
-    public string Username { get; set; }
+    public string Username { get; set; } = null!;
 
-    public ICollection<Group> Groups { get; set; }
 
-    public ICollection<Role> Roles { get; set; }
 
-    public ICollection<Workspace> Workspaces { get; set; }
+    public List<Group> Groups { get; } = [];
+
+    public List<UserGroup> UserGroups { get; } = [];
+
+
+
+    public List<Role> Roles { get; } = [];
+
+    public List<UserRole> UserRoles { get; } = [];
+
+
+
+    public List<Permission> Permissions { get; } = [];
+
+    public List<UserPermission> UserPermissions { get; } = [];
+
+
+
+    public List<Workspace> Workspaces { get; } = [];
+
+    public List<UserWorkspace> UserWorkspaces { get; } = [];
 }
 
 

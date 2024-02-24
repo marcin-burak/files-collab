@@ -7,11 +7,19 @@ internal sealed class Workspace
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public ICollection<User> Users { get; set; }
 
-    public ICollection<Group> Groups { get; set; }
+
+    public List<User> Users { get; } = [];
+
+    public List<UserWorkspace> UserWorkspaces { get; } = [];
+
+
+
+    public List<Group> Groups { get; } = [];
+
+    public List<GroupWorkspace> GroupWorkspaces { get; } = [];
 }
 
 internal sealed class WorkspaceConfiguration : IEntityTypeConfiguration<Workspace>

@@ -46,15 +46,17 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
 
         var anyUserExists = _applicationContext.User.AnyAsync(cancellationToken);
         var anyGroupExists = _applicationContext.Group.AnyAsync(cancellationToken);
+        var anyRoleExists = _applicationContext.Role.AnyAsync(cancellationToken);
         var anyWorkspaceExists = _applicationContext.Workspace.AnyAsync(cancellationToken);
 
         await Task.WhenAll(
             anyUserExists,
             anyGroupExists,
+            anyRoleExists,
             anyWorkspaceExists
         );
 
-        if (anyUserExists.Result || anyGroupExists.Result || anyWorkspaceExists.Result)
+        if (anyUserExists.Result || anyGroupExists.Result || anyRoleExists.Result || anyWorkspaceExists.Result)
         {
             return;
         }
@@ -101,6 +103,19 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
 
 
 
+        var administratorRole = new Role
+        {
+            Id = Guid.Parse("dbca4d40-9ea2-4284-88a5-098798dd3cfb"),
+            Name = "Administrator"
+        };
+
+        administratorRole.RolePermissions.Add(new()
+        {
+            PermissionId = Permission.ManageWorkspaces.Id
+        });
+
+
+
         var workspaceA = new Workspace
         {
             Id = Guid.Parse("170e3fe5-b627-e1e0-4b50-17d4f6240816"),
@@ -121,65 +136,46 @@ internal sealed class DatabaseInitialization(IOptionsSnapshot<SqlServerOptions> 
 
 
 
-        //TODO: Create own passing tables to take over control over many-to-many relationships
-        var administratorRole = await _applicationContext.Role.SingleAsync(role => role.Id == Role.Administrator.Id, cancellationToken);
+        userA.Roles.Add(administratorRole);
 
-
-
-        userA.Roles = new Role[]
-        {
-            administratorRole
-        };
-
-        userA.Groups = new Group[]
-        {
+        userA.Groups.AddRange([
             groupA,
             groupB,
             groupC
-        };
+        ]);
 
-        userA.Workspaces = new Workspace[]
-        {
+        userA.Workspaces.AddRange([
             workspaceA,
             workspaceB,
             workspaceC
-        };
+        ]);
 
 
 
-        userB.Groups = new Group[]
-        {
+        userB.Groups.AddRange([
             groupA,
             groupB
-        };
+        ]);
 
-        userB.Workspaces = new Workspace[]
-        {
-            workspaceB
-        };
+        userB.Workspaces.Add(workspaceB);
 
 
 
-        userC.Groups = new Group[]
-        {
-            groupC
-        };
+        userC.Groups.Add(groupC);
 
 
 
-        groupB.Workspaces = new Workspace[]
-        {
+        groupB.Workspaces.AddRange([
             workspaceB,
             workspaceC
-        };
+        ]);
 
 
 
-        groupC.Workspaces = new Workspace[]
-        {
+        groupC.Workspaces.AddRange([
             workspaceA,
             workspaceC
-        };
+        ]);
 
 
 
