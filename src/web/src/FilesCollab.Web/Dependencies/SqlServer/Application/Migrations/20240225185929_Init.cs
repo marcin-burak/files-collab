@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
+namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -73,30 +73,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupPermissions",
-                columns: table => new
-                {
-                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PermissionId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupPermissions", x => new { x.GroupId, x.PermissionId });
-                    table.ForeignKey(
-                        name: "FK_GroupPermissions_Group_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Group",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GroupPermissions_Permission_PermissionId",
-                        column: x => x.PermissionId,
-                        principalTable: "Permission",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "GroupRoles",
                 columns: table => new
                 {
@@ -162,30 +138,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserGroups_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserPermissions",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PermissionId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserPermissions", x => new { x.PermissionId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_UserPermissions_Permission_PermissionId",
-                        column: x => x.PermissionId,
-                        principalTable: "Permission",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserPermissions_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -275,11 +227,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupPermissions_PermissionId",
-                table: "GroupPermissions",
-                column: "PermissionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GroupRoles_RoleId",
                 table: "GroupRoles",
                 column: "RoleId");
@@ -315,11 +262,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPermissions_UserId",
-                table: "UserPermissions",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
@@ -339,9 +281,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GroupPermissions");
-
-            migrationBuilder.DropTable(
                 name: "GroupRoles");
 
             migrationBuilder.DropTable(
@@ -354,19 +293,16 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                 name: "UserGroups");
 
             migrationBuilder.DropTable(
-                name: "UserPermissions");
-
-            migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "UserWorkspaces");
 
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Permission");
 
             migrationBuilder.DropTable(
-                name: "Permission");
+                name: "Group");
 
             migrationBuilder.DropTable(
                 name: "Role");

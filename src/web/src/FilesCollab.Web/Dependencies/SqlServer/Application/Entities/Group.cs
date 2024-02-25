@@ -15,19 +15,9 @@ internal sealed class Group
 
     public List<UserGroup> UserGroups { get; } = [];
 
-
-
     public List<Role> Roles { get; } = [];
 
     public List<GroupRole> GroupRoles { get; } = [];
-
-
-
-    public List<Permission> Permissions { get; } = [];
-
-    public List<GroupPermission> GroupPermissions { get; } = [];
-
-
 
     public List<Workspace> Workspaces { get; } = [];
 

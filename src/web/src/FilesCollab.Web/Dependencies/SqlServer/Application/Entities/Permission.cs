@@ -13,18 +13,6 @@ internal sealed class Permission
 
 
 
-    public List<User> Users { get; } = [];
-
-    public List<UserPermission> UserPermissions { get; } = [];
-
-
-
-    public List<Group> Groups { get; } = [];
-
-    public List<GroupPermission> GroupPermissions { get; } = [];
-
-
-
     public List<Role> Roles { get; } = [];
 
     public List<RolePermission> RolePermissions { get; } = [];

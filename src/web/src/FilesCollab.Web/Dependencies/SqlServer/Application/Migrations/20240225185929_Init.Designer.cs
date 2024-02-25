@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
+namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240224192450_Init")]
+    [Migration("20240225185929_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -40,21 +40,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Group");
-                });
-
-            modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.GroupPermission", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PermissionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GroupId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("GroupPermissions");
                 });
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.GroupRole", b =>
@@ -179,21 +164,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                     b.ToTable("UserGroups");
                 });
 
-            modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserPermission", b =>
-                {
-                    b.Property<string>("PermissionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PermissionId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserPermissions");
-                });
-
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserRole", b =>
                 {
                     b.Property<Guid>("RoleId")
@@ -239,25 +209,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Workspace");
-                });
-
-            modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.GroupPermission", b =>
-                {
-                    b.HasOne("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Group", "Group")
-                        .WithMany("GroupPermissions")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Permission", "Permission")
-                        .WithMany("GroupPermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Permission");
                 });
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.GroupRole", b =>
@@ -336,25 +287,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserPermission", b =>
-                {
-                    b.HasOne("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Permission", "Permission")
-                        .WithMany("UserPermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.User", "User")
-                        .WithMany("UserPermissions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserRole", b =>
                 {
                     b.HasOne("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Role", "Role")
@@ -395,8 +327,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Group", b =>
                 {
-                    b.Navigation("GroupPermissions");
-
                     b.Navigation("GroupRoles");
 
                     b.Navigation("GroupWorkspaces");
@@ -406,11 +336,7 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Permission", b =>
                 {
-                    b.Navigation("GroupPermissions");
-
                     b.Navigation("RolePermissions");
-
-                    b.Navigation("UserPermissions");
                 });
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.Role", b =>
@@ -425,8 +351,6 @@ namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.User", b =>
                 {
                     b.Navigation("UserGroups");
-
-                    b.Navigation("UserPermissions");
 
                     b.Navigation("UserRoles");
 

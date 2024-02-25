@@ -12,15 +12,11 @@ internal sealed class ApplicationContext(DbContextOptions<ApplicationContext> op
 
     public DbSet<UserRole> UserRoles { get; set; }
 
-    public DbSet<UserPermission> UserPermissions { get; set; }
-
     public DbSet<UserWorkspace> UserWorkspaces { get; set; }
 
     public DbSet<Group> Group { get; set; }
 
     public DbSet<GroupRole> GroupRoles { get; set; }
-
-    public DbSet<GroupPermission> GroupPermissions { get; set; }
 
     public DbSet<GroupWorkspace> GroupWorkspaces { get; set; }
 
@@ -51,21 +47,11 @@ internal sealed class ApplicationContext(DbContextOptions<ApplicationContext> op
             .UsingEntity<UserRole>();
 
         modelBuilder.Entity<User>()
-            .HasMany(user => user.Permissions)
-            .WithMany(permission => permission.Users)
-            .UsingEntity<UserPermission>();
-
-        modelBuilder.Entity<User>()
             .HasMany(user => user.Workspaces)
             .WithMany(workspace => workspace.Users)
             .UsingEntity<UserWorkspace>();
 
 
-
-        modelBuilder.Entity<Group>()
-            .HasMany(group => group.Permissions)
-            .WithMany(permission => permission.Groups)
-            .UsingEntity<GroupPermission>();
 
         modelBuilder.Entity<Group>()
             .HasMany(group => group.Roles)
