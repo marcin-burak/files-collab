@@ -31,7 +31,7 @@ internal sealed class PermissionConfiguration : IEntityTypeConfiguration<Permiss
 {
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
-        builder.HasKey(permission => permission.Id);
+        builder.HasKey(permission => permission.Id).IsClustered(false);
         builder.HasIndex(permission => permission.Name);
 
         builder.HasData(Permission.ManageWorkspaces);

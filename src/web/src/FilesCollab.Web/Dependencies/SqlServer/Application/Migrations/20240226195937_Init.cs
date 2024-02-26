@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
+namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -20,7 +20,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.PrimaryKey("PK_Group", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,7 +34,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permission", x => x.Id);
+                    table.PrimaryKey("PK_Permission", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,7 +47,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Role", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,7 +60,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +73,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Workspace", x => x.Id);
+                    table.PrimaryKey("PK_Workspace", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +86,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupRoles", x => new { x.GroupId, x.RoleId });
+                    table.PrimaryKey("PK_GroupRoles", x => new { x.GroupId, x.RoleId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_GroupRoles_Group_GroupId",
                         column: x => x.GroupId,
@@ -105,7 +111,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RolePermissions", x => new { x.PermissionId, x.RoleId });
+                    table.PrimaryKey("PK_RolePermissions", x => new { x.RoleId, x.PermissionId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_RolePermissions_Permission_PermissionId",
                         column: x => x.PermissionId,
@@ -129,7 +136,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserGroups", x => new { x.GroupId, x.UserId });
+                    table.PrimaryKey("PK_UserGroups", x => new { x.UserId, x.GroupId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_UserGroups_Group_GroupId",
                         column: x => x.GroupId,
@@ -153,7 +161,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.RoleId, x.UserId });
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_UserRoles_Role_RoleId",
                         column: x => x.RoleId,
@@ -177,7 +186,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupWorkspaces", x => new { x.GroupId, x.WorkspaceId });
+                    table.PrimaryKey("PK_GroupWorkspaces", x => new { x.GroupId, x.WorkspaceId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_GroupWorkspaces_Group_GroupId",
                         column: x => x.GroupId,
@@ -201,7 +211,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserWorkspaces", x => new { x.UserId, x.WorkspaceId });
+                    table.PrimaryKey("PK_UserWorkspaces", x => new { x.UserId, x.WorkspaceId })
+                        .Annotation("SqlServer:Clustered", false);
                     table.ForeignKey(
                         name: "FK_UserWorkspaces_User_UserId",
                         column: x => x.UserId,
@@ -247,9 +258,9 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolePermissions_RoleId",
+                name: "IX_RolePermissions_PermissionId",
                 table: "RolePermissions",
-                column: "RoleId");
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Username",
@@ -257,14 +268,14 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                 column: "Username");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserGroups_UserId",
+                name: "IX_UserGroups_GroupId",
                 table: "UserGroups",
-                column: "UserId");
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UserId",
+                name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
-                column: "UserId");
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserWorkspaces_WorkspaceId",

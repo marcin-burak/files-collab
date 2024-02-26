@@ -1,4 +1,7 @@
-﻿namespace FilesCollab.Web.Dependencies.SqlServer.Application.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace FilesCollab.Web.Dependencies.SqlServer.Application.Entities;
 
 internal sealed class UserGroup
 {
@@ -11,4 +14,12 @@ internal sealed class UserGroup
     public User User { get; set; } = null!;
 
     public Group Group { get; set; } = null!;
+}
+
+internal sealed class UserGroupConfiguration : IEntityTypeConfiguration<UserGroup>
+{
+    public void Configure(EntityTypeBuilder<UserGroup> builder)
+    {
+        builder.HasKey(userGroup => new { userGroup.UserId, userGroup.GroupId }).IsClustered(false);
+    }
 }

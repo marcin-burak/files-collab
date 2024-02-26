@@ -32,6 +32,7 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
+        builder.HasKey(role => role.Id).IsClustered(false);
         builder.HasIndex(role => role.Name);
     }
 }

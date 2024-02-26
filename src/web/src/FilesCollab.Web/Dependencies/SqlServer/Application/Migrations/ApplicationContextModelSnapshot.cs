@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
+namespace FilesCollab.Web.Dependencies.SqlServer.Application.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     partial class ApplicationContextModelSnapshot : ModelSnapshot
@@ -34,6 +34,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
                     b.HasKey("Id");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
                     b.HasIndex("Name");
 
                     b.ToTable("Group");
@@ -49,6 +51,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
                     b.HasKey("GroupId", "RoleId");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("GroupId", "RoleId"), false);
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("GroupRoles");
@@ -63,6 +67,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("GroupId", "WorkspaceId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("GroupId", "WorkspaceId"), false);
 
                     b.HasIndex("WorkspaceId");
 
@@ -83,6 +89,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
 
                     b.HasIndex("Name");
 
@@ -109,6 +117,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
                     b.HasKey("Id");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
                     b.HasIndex("Name");
 
                     b.ToTable("Role");
@@ -116,15 +126,17 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.RolePermission", b =>
                 {
-                    b.Property<string>("PermissionId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PermissionId", "RoleId");
+                    b.Property<string>("PermissionId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("RoleId");
+                    b.HasKey("RoleId", "PermissionId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("RoleId", "PermissionId"), false);
+
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("RolePermissions");
                 });
@@ -141,6 +153,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
                     b.HasKey("Id");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
                     b.HasIndex("Username");
 
                     b.ToTable("User");
@@ -148,30 +162,34 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserGroup", b =>
                 {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("GroupId", "UserId");
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "GroupId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId", "GroupId"), false);
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("UserGroups");
                 });
 
             modelBuilder.Entity("FilesCollab.Web.Dependencies.SqlServer.Application.Entities.UserRole", b =>
                 {
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("RoleId", "UserId");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "RoleId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId", "RoleId"), false);
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
                 });
@@ -185,6 +203,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "WorkspaceId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId", "WorkspaceId"), false);
 
                     b.HasIndex("WorkspaceId");
 
@@ -202,6 +222,8 @@ namespace FilesCollab.Web.Dependencies.SqlSErver.Application.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
 
                     b.HasIndex("Name");
 

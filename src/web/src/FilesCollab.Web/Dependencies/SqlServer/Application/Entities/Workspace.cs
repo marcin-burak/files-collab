@@ -26,6 +26,7 @@ internal sealed class WorkspaceConfiguration : IEntityTypeConfiguration<Workspac
 {
     public void Configure(EntityTypeBuilder<Workspace> builder)
     {
+        builder.HasKey(workspace => workspace.Id).IsClustered(false);
         builder.HasIndex(workspace => workspace.Name);
     }
 }

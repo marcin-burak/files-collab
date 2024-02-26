@@ -28,6 +28,7 @@ internal sealed class GroupConfiguration : IEntityTypeConfiguration<Group>
 {
     public void Configure(EntityTypeBuilder<Group> builder)
     {
+        builder.HasKey(group => group.Id).IsClustered(false);
         builder.HasIndex(group => group.Name);
     }
 }
